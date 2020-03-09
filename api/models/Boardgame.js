@@ -27,6 +27,17 @@ module.exports = {
       avatar:{
         type: "string"
       },
+      bookstatus: {
+        type: "boolean"
+      },
+
+      borrowstatus: {
+        type: "boolean"
+      },
+
+      remark: {
+        type: "string"
+      },
       
   
       //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

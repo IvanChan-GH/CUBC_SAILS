@@ -40,6 +40,9 @@ module.exports = {
         type: "string"
       },
       
+      remark: {
+        type: "string"
+      },
   
       //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
       //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

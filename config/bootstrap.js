@@ -28,6 +28,8 @@ module.exports.bootstrap = async function () {
         author: 'Edith Nesbit',
         location: 'room101',
         avatar: '',
+        bookstatus: true,
+        borrowstatus: false,
       },
       {
         id: 2,
@@ -36,6 +38,8 @@ module.exports.bootstrap = async function () {
         author: 'Téa Obreht',
         location: 'room222',
         avatar: '',
+        bookstatus: false,
+        borrowstatus: true,
       },
     ]);
   }
@@ -48,6 +52,8 @@ module.exports.bootstrap = async function () {
         type: 'Card Game',
         location: 'room101',
         avatar: '',
+        bookstatus: true,
+        borrowstatus: false,
       },
       {
         id: 2,
@@ -55,6 +61,8 @@ module.exports.bootstrap = async function () {
         type: 'City Building',
         location: 'room101',
         avatar: '',
+        bookstatus: false,
+        borrowstatus: true,
       },
     ]);
   }
@@ -68,6 +76,8 @@ module.exports.bootstrap = async function () {
         returnback: true,
         location: 'room101',
         avatar: '',
+        bookstatus: false,
+        borrowstatus: true,
       },
       {
         id: 2,
@@ -76,6 +86,8 @@ module.exports.bootstrap = async function () {
         returnback: false,
         location: 'room202',
         avatar: '',
+        bookstatus: false,
+        borrowstatus: true,
       },
     ]);
   }

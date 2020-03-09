@@ -56,7 +56,7 @@ module.exports = {
             return res.view('user/upload');
     
         console.log('req.body.agree = ' + req.body.agree);
-    
+        console.log(req.session.username);
         await User.update({username: req.session.username}, {
             avatar: req.body.User.avatar
         });
