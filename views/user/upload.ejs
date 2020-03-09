@@ -1,0 +1,32 @@
+<form action="/user/upload" method="post">
+    <input type="file" accept="image/*" onchange="handleFile(this.files)" />
+    <div id="preview"></div>
+    <input type="submit" />
+    </div>
+    <script>
+        function handleFile(files) {
+
+            const file = files[0];
+            if (!file.type.startsWith('image/')) return;
+
+            var preview = document.getElementById('preview');
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                preview.innerHTML = "";
+
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style = "max-width:33vw";
+                preview.appendChild(img);
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'User[avatar]';
+                input.value = e.target.result;
+                preview.appendChild(input);
+            }
+            reader.readAsDataURL(file);
+
+        }
+    </script>
