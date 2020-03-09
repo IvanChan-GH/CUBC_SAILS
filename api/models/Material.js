@@ -16,7 +16,7 @@ module.exports = {
         type: "string"
       },
 
-      return: {
+      returnback: {
         type: "boolean"
       },
       

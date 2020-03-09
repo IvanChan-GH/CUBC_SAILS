@@ -20,14 +20,18 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': '/user/login',
-
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
   'POST /user/logout': 'UserController.logout',
 
   '/user/upload': 'UserController.upload',
-
   'GET /user/:username/avatar.jpg': 'UserController.avatar',
+
+
+  'GET /book/view/:id': 'BookController.viewdetails',
+  'GET /boardgame/view/:id': 'BoardgameController.viewdetails',
+  'GET /material/view/:id': 'MaterialController.viewdetails',
+  'GET /present/view/:id': 'PresentController.viewdetails',
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

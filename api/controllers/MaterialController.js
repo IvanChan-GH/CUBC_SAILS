@@ -6,7 +6,17 @@
  */
 
 module.exports = {
-  
+   //return item details
+   viewdetails: async function (req, res) {
+
+    var model = await Material.findOne(req.params.id);
+
+    if (!model) return res.notFound();
+
+    return res.view('material/viewdetails', { mat: model });
+
+},
+
 
 };
 

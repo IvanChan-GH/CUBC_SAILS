@@ -6,7 +6,12 @@
  */
 
 module.exports = {
-  
+  //return item details
+  viewdetails: async function (req, res) {
+    var model = await Present.findOne (req.params.id);
 
+    if (!model) return res.notFound ();
+
+    return res.view ('present/viewdetails', {present: model});
+  },
 };
-
