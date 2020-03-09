@@ -32,6 +32,15 @@ module.exports.routes = {
   'GET /boardgame/view/:id': 'BoardgameController.viewdetails',
   'GET /material/view/:id': 'MaterialController.viewdetails',
   'GET /present/view/:id': 'PresentController.viewdetails',
+
+  'GET /boardgame/create': 'BoardgameController.create',
+  'POST /boardgame/create': 'BoardgameController.create',
+  'GET /book/create': 'BookController.create',
+  'POST /book/create': 'BookController.create',
+  'GET /present/create': 'PresentController.create',
+  'POST /present/create': 'PresentController.create',
+  'GET /material/create': 'MaterialController.create',
+  'POST /material/create': 'MaterialController.create',
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
