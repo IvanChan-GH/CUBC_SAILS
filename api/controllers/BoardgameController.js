@@ -25,12 +25,99 @@ module.exports = {
       name: req.body.Boardgame.name,
       type: req.body.Boardgame.type,
       location: req.body.Boardgame.location,
-      avatar:req.body.Boardgame.avatar,
+      avatar: req.body.Boardgame.avatar,
       remark: req.body.Boardgame.remark,
-      bookstatus:false,
-      borrowstatus:false,
+      bookstatus: false,
+      borrowstatus: false,
     });
 
     return res.ok ('Successfully created!');
+  },
+
+  // update item info.
+  update: async function (req, res) {
+    if (req.method == 'GET') {
+      var model = await Boardgame.findOne (req.params.id);
+
+      if (!model) return res.notFound ();
+
+      return res.view ('boardgame/update', {boardgame: model});
+    } else {
+      if (!req.body.Boardgame)
+        return res.badRequest ('Form-data not received.');
+
+      var models = await Boardgame.update (req.params.id)
+        .set ({
+          name: req.body.Boardgame.name,
+          type: req.body.Boardgame.type,
+          location: req.body.Boardgame.location,
+          avatar: req.body.Boardgame.avatar,
+          remark: req.body.Boardgame.remark,
+        })
+        .fetch ();
+
+      if (models.length == 0) return res.notFound ();
+
+      return res.ok ('Record updated');
+    }
+  },
+
+  // add booking association
+  addbooking: async function (req, res) {
+    if (!await Boardgame.findOne (req.params.id)) return res.notFound ();
+
+    const thatPerson = await User.findOne (req.params.id).populate ('books', {
+      id: req.params.fk,
+    });
+    console.log ('fk:' + req.params.fk);
+    console.log ('id:' + req.params.id);
+    console.log (thatPerson);
+    if (!thatPerson) return res.notFound ();
+
+    if (thatPerson.books.length)
+      return res.status (409).send ('Already booked.'); // conflict
+
+    await Boardgame.addToCollection (req.params.fk, 'bookby').members (
+      req.params.id
+    );
+    await Boardgame.update (req.params.fk)
+      .set ({
+        bookstatus: true,
+      })
+      .fetch ();
+    var models;
+
+    if (req.wantsJSON) {
+      return res.json ({
+        message: 'booking successfully',
+        url: '/boardgame/viewdetail/' + req.params.fk,
+      }); // for ajax request
+    } else {
+      return res.redirect ('/boardgame/viewdetail/' + req.params.fk); // for normal request
+    }
+  },
+
+  //show borrowers
+  showbookingppl: async function (req, res) {
+    var model = await Boardgame.findOne (req.params.id).populate ('bookby');
+
+    if (!model) return res.notFound ();
+
+    return res.json (model);
+  },
+
+  // action - view book detail
+  viewdetail: async function (req, res) {
+    // console.log('req id: ',req.params.id);
+    var model = await Boardgame.findOne (req.params.id).populate ('bookby');
+    if (!model) return res.notFound ();
+    console.log(model);
+
+    
+
+    return res.view ('boardgame/booking', {
+      boardgame: model,
+      isbooked: model.bookstatus,
+    });
   },
 };

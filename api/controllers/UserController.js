@@ -6,63 +6,70 @@
  */
 
 module.exports = {
-    //user login
-    login: async function (req, res) {
+  //user login
+  login: async function (req, res) {
+    if (req.method == 'GET') return res.view ('user/login');
 
-        if (req.method == "GET") return res.view('user/login');
+    if (!req.body.username || !req.body.password) return res.badRequest ();
 
-        if (!req.body.username || !req.body.password) return res.badRequest();
+    var user = await User.findOne ({username: req.body.username});
 
-        var user = await User.findOne({ username: req.body.username });
+    if (!user) return res.status (401).send ('User not found');
 
-        if (!user) return res.status(401).send("User not found");
+    const match = await sails.bcrypt.compare (req.body.password, user.password);
 
-        const match = await sails.bcrypt.compare(req.body.password, user.password);
+    if (!match) return res.status (401).send ('Wrong Password');
 
-        if (!match) return res.status(401).send("Wrong Password");
+    req.session.regenerate (function (err) {
+      if (err) return res.serverError (err);
 
-        req.session.regenerate(function (err) {
+      req.session.username = req.body.username;
+      req.session.userId = user.id;
+      req.session.role = user.role;
+      console.log ('userid: ' + user.id);
+      sails.log ('[Session] ', req.session);
+      if (req.wantsJSON) {
+        return res.json ({
+          url: '/',
+          message: 'Login successfully.',
+          uid: user.id,
+        }); // for ajax request
+      } else {
+        return res.redirect ('/'); // for normal request
+      }
+    });
+  },
+  //user logout
+  logout: async function (req, res) {
+    req.session.destroy (function (err) {
+      if (err) return res.serverError (err);
+      // return res.ok("Log out successfully.");
+      return res.redirect ('/user/login');
+    });
+  },
 
-            if (err) return res.serverError(err);
+  // upload user's image photo
+  upload: async function (req, res) {
+    if (req.method == 'GET') return res.view ('user/upload');
 
-            req.session.username = req.body.username;
-            req.session.userId = user.id;
-            req.session.role = user.role;
-            console.log("userid: "+ user.id);
-            sails.log("[Session] ", req.session);
-            if (req.wantsJSON){
-                return res.json({url:'/', message: 'Login successfully.', uid: user.id});   // for ajax request
-            } else {
-                return res.redirect('/');           // for normal request
-            }
-    
-        });
-    },
-    //user logout
-    logout: async function (req, res) {
+    console.log ('req.body.agree = ' + req.body.agree);
+    console.log (req.session.username);
+    await User.update (
+      {username: req.session.username},
+      {
+        avatar: req.body.User.avatar,
+      }
+    );
 
-        req.session.destroy(function (err) {
+    return res.ok ('File uploaded.');
+  },
 
-            if (err) return res.serverError(err);
-            // return res.ok("Log out successfully.");
-            return res.redirect('/'); 
-        });
-    },
+  //show booking books
+  showbookingitem: async function (req, res) {
+    var model = await User.findOne (req.params.id).populate ('books');
 
-    // upload user's image photo
-    upload: async function(req, res) {
+    if (!model) return res.notFound ();
 
-        if (req.method == 'GET')
-            return res.view('user/upload');
-    
-        console.log('req.body.agree = ' + req.body.agree);
-        console.log(req.session.username);
-        await User.update({username: req.session.username}, {
-            avatar: req.body.User.avatar
-        });
-        
-        return res.ok('File uploaded.');
-    },
-
+    return res.json (model);
+  },
 };
-

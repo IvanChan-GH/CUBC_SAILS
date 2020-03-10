@@ -9,7 +9,6 @@
  */
 
 module.exports.routes = {
-
   /***************************************************************************
   *                                                                          *
   * Make the view located at `views/homepage.ejs` your home page.            *
@@ -27,7 +26,6 @@ module.exports.routes = {
   '/user/upload': 'UserController.upload',
   'GET /user/:username/avatar.jpg': 'UserController.avatar',
 
-
   'GET /book/view/:id': 'BookController.viewdetails',
   'GET /boardgame/view/:id': 'BoardgameController.viewdetails',
   'GET /material/view/:id': 'MaterialController.viewdetails',
@@ -41,6 +39,23 @@ module.exports.routes = {
   'POST /present/create': 'PresentController.create',
   'GET /material/create': 'MaterialController.create',
   'POST /material/create': 'MaterialController.create',
+
+  'GET /boardgame/update/:id': 'BoardgameController.update',
+  'POST /boardgame/update/:id': 'BoardgameController.update',
+  'GET /book/update/:id': 'BookController.update',
+  'POST /book/update/:id': 'BookController.update',
+  'GET /present/update/:id': 'PresentController.update',
+  'POST /present/update/:id': 'PresentController.update',
+  'GET /material/update/:id': 'MaterialController.update',
+  'POST /material/update/:id': 'MaterialController.update',
+
+
+  'GET /boardgame/:id/bookby': 'BoardgameController.showbookingppl',
+  'GET /user/:id/books': 'UserController.showbookingitem',
+
+  'GET /boardgame/viewdetail/:id': 'BoardgameController.viewdetail',
+  'POST /user/:id/addbooking/boardgame/:fk': 'BoardgameController.addbooking',
+  'POST /user/:id/removebooking/boardgame/:fk': 'BoardgameController.removebooking',
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
@@ -51,6 +66,4 @@ module.exports.routes = {
   * not match any of those, it is matched against static assets.             *
   *                                                                          *
   ***************************************************************************/
-
-
 };

@@ -34,4 +34,32 @@ module.exports = {
 
     return res.ok ('Successfully created!');
   },
+
+  // update item info.
+  update: async function (req, res) {
+    if (req.method == 'GET') {
+      var model = await Material.findOne (req.params.id);
+
+      if (!model) return res.notFound ();
+
+      return res.view ('material/update', {material: model});
+    } else {
+      if (!req.body.Material) return res.badRequest ('Form-data not received.');
+
+      var models = await Material.update (req.params.id)
+        .set ({
+          name: req.body.Material.name,
+          returnback: req.body.Material.returnback,
+          quantity: req.body.Material.quantity,
+          location: req.body.Material.location,
+          avatar: req.body.Material.avatar,
+          remark: req.body.Material.remark,
+        })
+        .fetch ();
+
+      if (models.length == 0) return res.notFound ();
+
+      return res.ok ('Record updated');
+    }
+  },
 };

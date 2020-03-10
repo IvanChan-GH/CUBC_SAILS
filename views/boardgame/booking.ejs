@@ -1,0 +1,67 @@
+<div>Board Game name: <%= boardgame.name %></div>
+<div>Board Game type: <%= boardgame.type %></div>
+<div>Board Game location: <%= boardgame.location %></div>
+<div>Board Game remark: <%= boardgame.remark %></div>
+<div>Board Game avatar: <%= boardgame.avatar %></div>
+<div style="float: left;padding-top: 10px;">
+    <% if (isbooked==true){ %>
+    <button type="button" class="btn btn-danger" onclick="removebooking('<%= req.session.userId %>')">
+        Cancle booking
+    </button>
+    <% } else{ %>
+    <button type="button" class="btn btn-primary" onclick="addbooking('<%= req.session.userId %>')">
+        Add booking
+    </button>
+    <%} %>
+</div>
+
+<script>
+    async function addbooking(id) {
+        var r = confirm("Confirm to book?");
+
+        if (r) {
+            var response = await fetch(
+                "/user/<%= req.session.userId %>/addbooking/boardgame/<%= boardgame.id %>",
+                {
+                    method: "POST",
+                    credentials: "same-origin"
+                }
+            );
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        } else {
+            alert("cancelled");
+        }
+    }
+
+    async function removebooking(id) {
+        var r = confirm("Confirm to remove booking?");
+
+        if (r) {
+            var response = await fetch(
+                "/user/<%= req.session.userId %>/removebooking/boardgame/<%= boardgame.id %>",
+                {
+                    method: "POST",
+                    credentials: "same-origin"
+                }
+            );
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        } else {
+            alert("cancelled");
+        }
+    }
+
+</script>

@@ -26,11 +26,39 @@ module.exports = {
       price: req.body.Present.price,
       quantity: req.body.Present.quantity,
       location: req.body.Present.location,
-      avatar:req.body.Present.avatar,
+      avatar: req.body.Present.avatar,
       remark: req.body.Present.remark,
-  
     });
 
     return res.ok ('Successfully created!');
+  },
+
+  // update item info.
+  update: async function (req, res) {
+    if (req.method == 'GET') {
+      var model = await Present.findOne (req.params.id);
+
+      if (!model) return res.notFound ();
+
+      return res.view ('present/update', {present: model});
+    } else {
+      if (!req.body.Present) return res.badRequest ('Form-data not received.');
+
+      var models = await Present.update (req.params.id)
+        .set ({
+          name: req.body.Present.name,
+          size: req.body.Present.size,
+          price: req.body.Present.price,
+          quantity: req.body.Present.quantity,
+          location: req.body.Present.location,
+          avatar: req.body.Present.avatar,
+          remark: req.body.Present.remark,
+        })
+        .fetch ();
+
+      if (models.length == 0) return res.notFound ();
+
+      return res.ok ('Record updated');
+    }
   },
 };
