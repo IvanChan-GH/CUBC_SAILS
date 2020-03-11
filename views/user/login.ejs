@@ -20,8 +20,8 @@
 
 </form>
 <br><br>
-<div><a href="http://localhost:1337/user/login" class="btn btn-primary">Logout</a></div>
-
+<div><a href="http://localhost:1337/user/logout" class="btn btn-primary">Logout</a></div>
+<li class="nav-item">Hi, <%= req.session.username %>. </li>
 <script>
     async function submitForm(oFormElement) {
 

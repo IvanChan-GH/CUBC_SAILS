@@ -44,6 +44,8 @@ module.exports = {
     req.session.destroy (function (err) {
       if (err) return res.serverError (err);
       // return res.ok("Log out successfully.");
+      console.log("logout now");
+      console.log(req.session);
       return res.redirect ('/user/login');
     });
   },
@@ -64,12 +66,60 @@ module.exports = {
     return res.ok ('File uploaded.');
   },
 
-  //show booking books
-  showbookingitem: async function (req, res) {
-    var model = await User.findOne (req.params.id).populate ('books');
+  //show booking boardgame
+  showbookingboardgame: async function (req, res) {
+    var model = await User.findOne (req.params.id).populate ('bookboardgame');
 
     if (!model) return res.notFound ();
 
     return res.json (model);
   },
+  //show booking boardgamehistoryt
+  showbookingboardgamehist: async function (req, res) {
+    var model = await User.findOne (req.params.id).populate ('bookboardgamehist');
+
+    if (!model) return res.notFound ();
+
+    return res.json (model);
+  },
+
+
+  //show booking books
+  showbookingbook: async function (req, res) {
+    var model = await User.findOne (req.params.id).populate ('bookbook');
+
+    if (!model) return res.notFound ();
+
+    return res.json (model);
+  },
+
+
+  //show booking materials
+  showbookingmaterial: async function (req, res) {
+    var model = await User.findOne (req.params.id).populate ('bookmaterial');
+
+    if (!model) return res.notFound ();
+
+    return res.json (model);
+  },
+
+
+  //Search function
+  search: async function (req, res) {
+ 
+    var bgmodel;
+    if (req.method == 'GET') return res.view ('user/search' , { boardgames: bgmodel });
+
+    if (!req.body.keyword) return res.badRequest ('Form-data not received.');
+
+    var word=req.body.keyword;
+    var bgmodel = await Boardgame.find({
+      where: { name: { contains: word } },
+      sort: 'updatedAt DESC'
+    });
+  
+    return res.view('user/search', { boardgames: bgmodel });
+  },
+
+
 };

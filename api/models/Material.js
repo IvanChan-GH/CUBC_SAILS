@@ -54,7 +54,11 @@ module.exports = {
       //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
       //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
   
-  
+      matbookby: {
+        collection: 'User',
+        via: 'bookmaterial'
+      },
+
     },
   };
   

@@ -48,11 +48,15 @@ module.exports = {
       //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
       //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
       //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-      bookby: {
+      bgbookby: {
         collection: 'User',
-        via: 'books'
+        via: 'bookboardgame'
       },
-  
+      
+      bgbookbyhist: {
+        collection: 'User',
+        via: 'bookboardgamehist'
+      },
     },
   };
   

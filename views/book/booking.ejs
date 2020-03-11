@@ -1,0 +1,68 @@
+<div>Book name: <%= book.name %></div>
+<div>Book author: <%= book.author %></div>
+<div>Book publish year: <%= book.pubyear %></div>
+<div>Book location: <%= book.location %></div>
+<div>Book remark: <%= book.remark %></div>
+<div>Book avatar: <%= book.avatar %></div>
+<div style="float: left;padding-top: 10px;">
+    <% if (isbooked==true){ %>
+    <button type="button" class="btn btn-danger" onclick="removebooking('<%= req.session.userId %>')">
+        Cancle booking
+    </button>
+    <% } else{ %>
+    <button type="button" class="btn btn-primary" onclick="addbooking('<%= req.session.userId %>')">
+        Add booking
+    </button>
+    <%} %>
+</div>
+
+<script>
+    async function addbooking(id) {
+        var r = confirm("Confirm to book?");
+
+        if (r) {
+            var response = await fetch(
+                "/user/<%= req.session.userId %>/addbooking/book/<%= book.id %>",
+                {
+                    method: "POST",
+                    credentials: "same-origin"
+                }
+            );
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        } else {
+            alert("cancelled");
+        }
+    }
+
+    async function removebooking(id) {
+        var r = confirm("Confirm to remove booking?");
+
+        if (r) {
+            var response = await fetch(
+                "/user/<%= req.session.userId %>/removebooking/book/<%= book.id %>",
+                {
+                    method: "POST",
+                    credentials: "same-origin"
+                }
+            );
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+        } else {
+            alert("cancelled");
+        }
+    }
+
+</script>

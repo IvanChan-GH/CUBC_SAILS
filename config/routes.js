@@ -21,7 +21,11 @@ module.exports.routes = {
   '/': '/user/login',
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
+  'GET /user/logout': 'UserController.logout',
   'POST /user/logout': 'UserController.logout',
+
+  'GET /user/search': 'UserController.search',
+  'POST /user/search': 'UserController.search',
 
   '/user/upload': 'UserController.upload',
   'GET /user/:username/avatar.jpg': 'UserController.avatar',
@@ -49,13 +53,38 @@ module.exports.routes = {
   'GET /material/update/:id': 'MaterialController.update',
   'POST /material/update/:id': 'MaterialController.update',
 
+  'GET /boardgame/:id/bookby': 'BoardgameController.showbooking',
+  'GET /book/:id/bookby': 'BookController.showbooking',
+  'GET /material/:id/bookby': 'MaterialController.showbooking',
+  'GET /present/:id/bookby': 'PresentController.showbooking',
+  'GET /user/:id/bookingboardgame': 'UserController.showbookingboardgame',
+  'GET /user/:id/bookingbook': 'UserController.showbookingbook',
+  'GET /user/:id/bookingmaterial': 'UserController.showbookingmaterial',
+  'GET /user/:id/bookingpresent': 'UserController.showbookingpresent',
 
-  'GET /boardgame/:id/bookby': 'BoardgameController.showbookingppl',
-  'GET /user/:id/books': 'UserController.showbookingitem',
+  'GET /boardgame/:id/bookby/history': 'BoardgameController.showbookinghist',
+  // 'GET /book/:id/bookby/history': 'BookController.showbookinghist',
+  // 'GET /material/:id/bookby/history': 'MaterialController.showbookinghist',
+  // 'GET /present/:id/bookby/history': 'PresentController.showbookinghist',
+  'GET /user/:id/bookingboardgame/history': 'UserController.showbookingboardgamehist',
+  // 'GET /user/:id/bookingbook/history': 'UserController.showbookingbookhist',
+  // 'GET /user/:id/bookingmaterial/history': 'UserController.showbookingmaterialhist',
+  // 'GET /user/:id/bookingpresent/history': 'UserController.showbookingpresenthist',
 
   'GET /boardgame/viewdetail/:id': 'BoardgameController.viewdetail',
+  'GET /book/viewdetail/:id': 'BookController.viewdetail',
+  'GET /material/viewdetail/:id': 'MaterialController.viewdetail',
+  'GET /present/viewdetail/:id': 'PresentController.viewdetail',
+
   'POST /user/:id/addbooking/boardgame/:fk': 'BoardgameController.addbooking',
+  'POST /user/:id/addbooking/book/:fk': 'BookController.addbooking',
+  'POST /user/:id/addbooking/material/:fk': 'MaterialController.addbooking',
+
+
   'POST /user/:id/removebooking/boardgame/:fk': 'BoardgameController.removebooking',
+  'POST /user/:id/removebooking/book/:fk': 'BookController.removebooking',
+  'POST /user/:id/removebooking/material/:fk': 'MaterialController.removebooking',
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

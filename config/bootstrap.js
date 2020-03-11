@@ -28,7 +28,7 @@ module.exports.bootstrap = async function () {
         author: 'Edith Nesbit',
         location: 'room101',
         avatar: '',
-        bookstatus: true,
+        bookstatus: false,
         borrowstatus: false,
       },
       {
@@ -52,7 +52,7 @@ module.exports.bootstrap = async function () {
         type: 'Card Game',
         location: 'room101',
         avatar: '',
-        bookstatus: true,
+        bookstatus: false,
         borrowstatus: false,
       },
       {

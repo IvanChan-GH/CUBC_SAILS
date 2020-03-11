@@ -39,11 +39,29 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    books: {
+    bookboardgame: {
       collection: 'Boardgame',
-      via: 'bookby'
+      via: 'bgbookby'
     },
 
+    bookboardgamehist: {
+      collection: 'Boardgame',
+      via: 'bgbookbyhist'
+    },
+
+
+    bookbook: {
+      collection: 'Book',
+      via: 'bkbookby'
+    },
+
+
+    bookmaterial: {
+      collection: 'Material',
+      via: 'matbookby'
+    },
+
+   
   },
 };
 

@@ -64,9 +64,11 @@ module.exports = {
 
   // add booking association
   addbooking: async function (req, res) {
-    if (!await Boardgame.findOne (req.params.id)) return res.notFound ();
+    if (!await Boardgame.findOne (req.params.fk)) return res.notFound ();
 
-    const thatPerson = await User.findOne (req.params.id).populate ('books', {
+    const thatPerson = await User.findOne (
+      req.params.id
+    ).populate ('bookboardgame', {
       id: req.params.fk,
     });
     console.log ('fk:' + req.params.fk);
@@ -74,18 +76,28 @@ module.exports = {
     console.log (thatPerson);
     if (!thatPerson) return res.notFound ();
 
-    if (thatPerson.books.length)
+    if (thatPerson.bookboardgame.length)
       return res.status (409).send ('Already booked.'); // conflict
 
-    await Boardgame.addToCollection (req.params.fk, 'bookby').members (
+    await Boardgame.addToCollection (req.params.fk, 'bgbookby').members (
       req.params.id
     );
+    await User.addToCollection (req.params.id, 'bookboardgame').members (
+      req.params.fk
+    );
+
+    await Boardgame.addToCollection (req.params.fk, 'bgbookbyhist').members (
+      req.params.id
+    );
+    await User.addToCollection (req.params.id, 'bookboardgamehist').members (
+      req.params.fk
+    );
+
     await Boardgame.update (req.params.fk)
       .set ({
         bookstatus: true,
       })
       .fetch ();
-    var models;
 
     if (req.wantsJSON) {
       return res.json ({
@@ -97,23 +109,70 @@ module.exports = {
     }
   },
 
+  //remove booking association
+  removebooking: async function (req, res) {
+    if (!await Boardgame.findOne (req.params.fk)) return res.notFound ();
+
+    const thatPerson = await User.findOne (
+      req.params.id
+    ).populate ('bookboardgame', {
+      id: req.params.fk,
+    });
+
+    if (!thatPerson) return res.notFound ();
+
+    if (!thatPerson.bookboardgame.length)
+      return res.status (409).send ('Nothing to delete.'); // conflict
+
+    await Boardgame.removeFromCollection (req.params.fk, 'bgbookby').members (
+      req.params.id
+    );
+    await User.removeFromCollection (req.params.id, 'bookboardgame').members (
+      req.params.fk
+    );
+
+    await Boardgame.update (req.params.fk)
+      .set ({
+        bookstatus: false,
+      })
+      .fetch ();
+
+    if (req.wantsJSON) {
+      return res.json ({
+        message: 'cancle booking successfully',
+        url: '/boardgame/viewdetail/' + req.params.fk,
+      }); // for ajax request
+    } else {
+      return res.redirect ('/boardgame/viewdetail/' + req.params.fk); // for normal request
+    }
+  },
+
   //show borrowers
-  showbookingppl: async function (req, res) {
-    var model = await Boardgame.findOne (req.params.id).populate ('bookby');
+  showbooking: async function (req, res) {
+    var model = await Boardgame.findOne (req.params.id).populate ('bgbookby');
 
     if (!model) return res.notFound ();
 
     return res.json (model);
   },
 
-  // action - view book detail
+  //show borrowers history
+  showbookinghist: async function (req, res) {
+    var model = await Boardgame.findOne (req.params.id).populate (
+      'bgbookbyhist'
+    );
+
+    if (!model) return res.notFound ();
+
+    return res.json (model);
+  },
+
+  // action - view boardgame detail
   viewdetail: async function (req, res) {
     // console.log('req id: ',req.params.id);
-    var model = await Boardgame.findOne (req.params.id).populate ('bookby');
+    var model = await Boardgame.findOne (req.params.id).populate ('bgbookby');
     if (!model) return res.notFound ();
-    console.log(model);
-
-    
+    console.log (model);
 
     return res.view ('boardgame/booking', {
       boardgame: model,

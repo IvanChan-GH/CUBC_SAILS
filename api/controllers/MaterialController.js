@@ -62,4 +62,105 @@ module.exports = {
       return res.ok ('Record updated');
     }
   },
+
+  // add booking association
+  addbooking: async function (req, res) {
+    if (!await Material.findOne (req.params.fk)) return res.notFound ();
+
+    const thatPerson = await User.findOne (
+      req.params.id
+    ).populate ('bookmaterial', {
+      id: req.params.fk,
+    });
+    console.log ('fk:' + req.params.fk);
+    console.log ('id:' + req.params.id);
+    console.log (thatPerson);
+    if (!thatPerson) return res.notFound ();
+
+    if (thatPerson.bookmaterial.length)
+      return res.status (409).send ('Already booked.'); // conflict
+
+    await Material.addToCollection (req.params.fk, 'matbookby').members (
+      req.params.id
+    );
+    await User.addToCollection (req.params.id, 'bookmaterial').members (
+      req.params.fk
+    );
+
+    await Material.update (req.params.fk)
+      .set ({
+        bookstatus: true,
+      })
+      .fetch ();
+
+    if (req.wantsJSON) {
+      return res.json ({
+        message: 'booking successfully',
+        url: '/material/viewdetail/' + req.params.fk,
+      }); // for ajax request
+    } else {
+      return res.redirect ('/material/viewdetail/' + req.params.fk); // for normal request
+    }
+  },
+
+  //remove booking association
+  removebooking: async function (req, res) {
+    if (!await Material.findOne (req.params.fk)) return res.notFound ();
+
+    const thatPerson = await User.findOne (
+      req.params.id
+    ).populate ('bookmaterial', {
+      id: req.params.fk,
+    });
+
+    if (!thatPerson) return res.notFound ();
+
+    if (!thatPerson.bookmaterial.length)
+      return res.status (409).send ('Nothing to delete.'); // conflict
+
+    await Material.removeFromCollection (req.params.fk, 'matbookby').members (
+      req.params.id
+    );
+    await User.removeFromCollection (req.params.id, 'bookmaterial').members (
+      req.params.fk
+    );
+
+    await Material.update (req.params.fk)
+      .set ({
+        bookstatus: false,
+      })
+      .fetch ();
+
+    if (req.wantsJSON) {
+      return res.json ({
+        message: 'cancle booking successfully',
+        url: '/material/viewdetail/' + req.params.fk,
+      }); // for ajax request
+    } else {
+      return res.redirect ('/material/viewdetail/' + req.params.fk); // for normal request
+    }
+  },
+
+  //show borrowers
+  showbooking: async function (req, res) {
+    var model = await Material.findOne (req.params.id).populate ('matbookby');
+
+    if (!model) return res.notFound ();
+
+    return res.json (model);
+  },
+
+ 
+  // action - view book detail
+  viewdetail: async function (req, res) {
+    // console.log('req id: ',req.params.id);
+    var model = await Material.findOne (req.params.id).populate ('matbookby');
+    if (!model) return res.notFound ();
+    console.log (model);
+
+    return res.view ('material/booking', {
+      material: model,
+      isbooked: model.bookstatus,
+    });
+  },
 };
