@@ -1,19 +1,53 @@
 <form action="/user/search" method="POST">
 
-        <div class="form-group">
-            <label>Keyword search:</label>
-            <input type="text" class="form-control" name="keyword"  required>
-        </div>
-        
+    <div class="form-group">
+        <label>Keyword search:</label>
+        <input type="text" class="form-control" name="keyword" required>
+    </div>
+
     <button type="submit" class="btn btn-primary">search</button>
 </form>
-
-
+<br>
+<div><u>Board Game name:</u></div>
+<% console.log(boardgames) %>
 <% if(boardgames) {boardgames.forEach( function(model) { %>
-    <div class="card">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Board Game name: <%= model.name %></li>
-        </ul>
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> <%= model.name %></li>
+    </ul>
 
-    </div>
-    <% })}; %>
+</div>
+<% })}; %>
+
+<br>
+<div><u>Book name:</u></div>
+<% console.log(books) %>
+<% if(books) {books.forEach( function(model) { %>
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> <%= model.name %></li>
+    </ul>
+</div>
+<% })}; %>
+
+<br>
+<div><u>Material name:</u></div>
+<% console.log(materials) %>
+<% if(materials) {materials.forEach( function(model) { %>
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> <%= model.name %></li>
+    </ul>
+</div>
+<% })}; %>
+
+<br>
+<div><u>Present name:</u></div>
+<% console.log(presents) %>
+<% if(presents) {presents.forEach( function(model) { %>
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> <%= model.name %></li>
+    </ul>
+</div>
+<% })}; %>

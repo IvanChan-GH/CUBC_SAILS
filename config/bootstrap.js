@@ -41,6 +41,16 @@ module.exports.bootstrap = async function () {
         bookstatus: false,
         borrowstatus: true,
       },
+      {
+        id: 3,
+        name: '72 hours',
+        pubyear: 2019,
+        author: 'Téa Obreht',
+        location: 'room222',
+        avatar: '',
+        bookstatus: false,
+        borrowstatus: true,
+      },
     ]);
   }
 

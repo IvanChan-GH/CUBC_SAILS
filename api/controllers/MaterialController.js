@@ -96,10 +96,10 @@ module.exports = {
     if (req.wantsJSON) {
       return res.json ({
         message: 'booking successfully',
-        url: '/material/viewdetail/' + req.params.fk,
+        url: '/material/bookingdetail/' + req.params.fk,
       }); // for ajax request
     } else {
-      return res.redirect ('/material/viewdetail/' + req.params.fk); // for normal request
+      return res.redirect ('/material/bookingdetail/' + req.params.fk); // for normal request
     }
   },
 
@@ -134,10 +134,10 @@ module.exports = {
     if (req.wantsJSON) {
       return res.json ({
         message: 'cancle booking successfully',
-        url: '/material/viewdetail/' + req.params.fk,
+        url: '/material/bookingdetail/' + req.params.fk,
       }); // for ajax request
     } else {
-      return res.redirect ('/material/viewdetail/' + req.params.fk); // for normal request
+      return res.redirect ('/material/bookingdetail/' + req.params.fk); // for normal request
     }
   },
 
@@ -152,7 +152,7 @@ module.exports = {
 
  
   // action - view book detail
-  viewdetail: async function (req, res) {
+  bookingdetail: async function (req, res) {
     // console.log('req id: ',req.params.id);
     var model = await Material.findOne (req.params.id).populate ('matbookby');
     if (!model) return res.notFound ();

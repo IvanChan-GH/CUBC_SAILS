@@ -71,10 +71,10 @@ module.exports.routes = {
   // 'GET /user/:id/bookingmaterial/history': 'UserController.showbookingmaterialhist',
   // 'GET /user/:id/bookingpresent/history': 'UserController.showbookingpresenthist',
 
-  'GET /boardgame/viewdetail/:id': 'BoardgameController.viewdetail',
-  'GET /book/viewdetail/:id': 'BookController.viewdetail',
-  'GET /material/viewdetail/:id': 'MaterialController.viewdetail',
-  'GET /present/viewdetail/:id': 'PresentController.viewdetail',
+  'GET /boardgame/bookingdetail/:id': 'BoardgameController.bookingdetail',
+  'GET /book/bookingdetail/:id': 'BookController.bookingdetail',
+  'GET /material/bookingdetail/:id': 'MaterialController.bookingdetail',
+  
 
   'POST /user/:id/addbooking/boardgame/:fk': 'BoardgameController.addbooking',
   'POST /user/:id/addbooking/book/:fk': 'BookController.addbooking',

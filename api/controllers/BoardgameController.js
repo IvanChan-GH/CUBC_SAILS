@@ -102,10 +102,10 @@ module.exports = {
     if (req.wantsJSON) {
       return res.json ({
         message: 'booking successfully',
-        url: '/boardgame/viewdetail/' + req.params.fk,
+        url: '/boardgame/bookingdetail/' + req.params.fk,
       }); // for ajax request
     } else {
-      return res.redirect ('/boardgame/viewdetail/' + req.params.fk); // for normal request
+      return res.redirect ('/boardgame/bookingdetail/' + req.params.fk); // for normal request
     }
   },
 
@@ -140,10 +140,10 @@ module.exports = {
     if (req.wantsJSON) {
       return res.json ({
         message: 'cancle booking successfully',
-        url: '/boardgame/viewdetail/' + req.params.fk,
+        url: '/boardgame/bookingdetail/' + req.params.fk,
       }); // for ajax request
     } else {
-      return res.redirect ('/boardgame/viewdetail/' + req.params.fk); // for normal request
+      return res.redirect ('/boardgame/bookingdetail/' + req.params.fk); // for normal request
     }
   },
 
@@ -168,7 +168,7 @@ module.exports = {
   },
 
   // action - view boardgame detail
-  viewdetail: async function (req, res) {
+  bookingdetail: async function (req, res) {
     // console.log('req id: ',req.params.id);
     var model = await Boardgame.findOne (req.params.id).populate ('bgbookby');
     if (!model) return res.notFound ();

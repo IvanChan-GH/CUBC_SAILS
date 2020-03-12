@@ -96,10 +96,10 @@ module.exports = {
     if (req.wantsJSON) {
       return res.json ({
         message: 'booking successfully',
-        url: '/book/viewdetail/' + req.params.fk,
+        url: '/book/bookingdetail/' + req.params.fk,
       }); // for ajax request
     } else {
-      return res.redirect ('/book/viewdetail/' + req.params.fk); // for normal request
+      return res.redirect ('/book/bookingdetail/' + req.params.fk); // for normal request
     }
   },
 
@@ -134,10 +134,10 @@ module.exports = {
     if (req.wantsJSON) {
       return res.json ({
         message: 'cancle booking successfully',
-        url: '/book/viewdetail/' + req.params.fk,
+        url: '/book/bookingdetail/' + req.params.fk,
       }); // for ajax request
     } else {
-      return res.redirect ('/book/viewdetail/' + req.params.fk); // for normal request
+      return res.redirect ('/book/bookingdetail/' + req.params.fk); // for normal request
     }
   },
 
@@ -151,8 +151,8 @@ module.exports = {
   },
 
  
-  // action - view book detail
-  viewdetail: async function (req, res) {
+  // action - view book detail  
+  bookingdetail: async function (req, res) {
     // console.log('req id: ',req.params.id);
     var model = await Book.findOne (req.params.id).populate ('bkbookby');
     if (!model) return res.notFound ();

@@ -107,8 +107,8 @@ module.exports = {
   //Search function
   search: async function (req, res) {
  
-    var bgmodel;
-    if (req.method == 'GET') return res.view ('user/search' , { boardgames: bgmodel });
+    
+    if (req.method == 'GET') return res.view ('user/search' , { boardgames: null , books: null , materials: null, presents: null});
 
     if (!req.body.keyword) return res.badRequest ('Form-data not received.');
 
@@ -117,8 +117,23 @@ module.exports = {
       where: { name: { contains: word } },
       sort: 'updatedAt DESC'
     });
+
+    var bkmodel = await Book.find({
+      where: { name: { contains: word } },
+      sort: 'updatedAt DESC'
+    });
+
+    var matmodel = await Material.find({
+      where: { name: { contains: word } },
+      sort: 'updatedAt DESC'
+    });
   
-    return res.view('user/search', { boardgames: bgmodel });
+    var presentmodel = await Present.find({
+      where: { name: { contains: word } },
+      sort: 'updatedAt DESC'
+    });
+
+    return res.view('user/search', { boardgames: bgmodel ,books: bkmodel ,materials: matmodel, presents: presentmodel});
   },
 
 
