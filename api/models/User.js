@@ -61,7 +61,20 @@ module.exports = {
       via: 'matbookby'
     },
 
+    borrowboardgame: {
+      collection: 'Boardgame',
+      via: 'bgborrowby'
+    },
+
+    borrowbook: {
+      collection: 'Book',
+      via: 'bkborrowby'
+    },
    
+    borrowmaterial: {
+      collection: 'Material',
+      via: 'matborrowby'
+    },
   },
 };
 

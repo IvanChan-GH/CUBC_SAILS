@@ -6,6 +6,13 @@
  */
 
 module.exports = {
+
+   //list boardgame model
+   list: async function (req, res) {
+    var models = await Present.find ();
+    return res.view ('present/list', {presents: models});
+  },
+
   //return item details
   viewdetails: async function (req, res) {
     var model = await Present.findOne (req.params.id);

@@ -1,13 +1,12 @@
 <form action="/user/search" method="POST">
-
     <div class="form-group">
         <label>Keyword search:</label>
         <input type="text" class="form-control" name="keyword" required>
     </div>
-
     <button type="submit" class="btn btn-primary">search</button>
 </form>
 <br>
+
 <div><u>Board Game name:</u></div>
 <% console.log(boardgames) %>
 <% if(boardgames) {boardgames.forEach( function(model) { %>
@@ -15,7 +14,6 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item"> <%= model.name %></li>
     </ul>
-
 </div>
 <% })}; %>
 

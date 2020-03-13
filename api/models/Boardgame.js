@@ -57,6 +57,11 @@ module.exports = {
         collection: 'User',
         via: 'bookboardgamehist'
       },
+
+      bgborrowby: {
+        collection: 'User',
+        via: 'borrowboardgame'
+      },
     },
   };
   

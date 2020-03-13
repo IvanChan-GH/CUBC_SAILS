@@ -6,6 +6,12 @@
  */
 
 module.exports = {
+  //list boardgame model
+  list: async function (req, res) {
+    var models = await Boardgame.find ();
+    return res.view ('boardgame/list', {boardgames: models});
+  },
+
   //return item details
   viewdetails: async function (req, res) {
     var model = await Boardgame.findOne (req.params.id);
@@ -147,7 +153,7 @@ module.exports = {
     }
   },
 
-  //show borrowers
+  //show booking user
   showbooking: async function (req, res) {
     var model = await Boardgame.findOne (req.params.id).populate ('bgbookby');
 
@@ -167,7 +173,7 @@ module.exports = {
     return res.json (model);
   },
 
-  // action - view boardgame detail
+  // action - booking detail page
   bookingdetail: async function (req, res) {
     // console.log('req id: ',req.params.id);
     var model = await Boardgame.findOne (req.params.id).populate ('bgbookby');
@@ -179,4 +185,118 @@ module.exports = {
       isbooked: model.bookstatus,
     });
   },
+
+  // action - borrow detail page
+  borrowdetail: async function (req, res) {
+    // console.log('req id: ',req.params.id);
+    var model = await Boardgame.findOne (req.params.id).populate ('bgborrowby');
+    if (!model) return res.notFound ();
+    console.log (model);
+
+    return res.view ('boardgame/borrow', {
+      boardgame: model,
+      isborrowed: model.borrowstatus,
+    });
+  },
+
+ // add borrow association
+ addborrow: async function (req, res) {
+  if (!await Boardgame.findOne (req.params.fk)) return res.notFound ();
+
+  const thatPerson = await User.findOne (
+    req.params.id
+  ).populate ('borrowboardgame', {
+    id: req.params.fk,
+  });
+  console.log ('fk:' + req.params.fk);
+  console.log ('id:' + req.params.id);
+  console.log (thatPerson);
+  if (!thatPerson) return res.notFound ();
+
+  if (thatPerson.borrowboardgame.length)
+    return res.status (409).send ('Already borrowed.'); // conflict
+
+  await Boardgame.addToCollection (req.params.fk, 'bgborrowby').members (
+    req.params.id
+  );
+  await User.addToCollection (req.params.id, 'borrowboardgame').members (
+    req.params.fk
+  );
+
+  await Boardgame.update (req.params.fk)
+    .set ({
+      borrowstatus: true,
+    })
+    .fetch ();
+
+  if (req.wantsJSON) {
+    return res.json ({
+      message: 'borrow successfully',
+      url: '/boardgame/borrowdetail/' + req.params.fk,
+    }); // for ajax request
+  } else {
+    return res.redirect ('/boardgame/borrowdetail/' + req.params.fk); // for normal request
+  }
+},
+
+//remove borrow association
+removeborrow: async function (req, res) {
+  if (!await Boardgame.findOne (req.params.fk)) return res.notFound ();
+
+  const thatPerson = await User.findOne (
+    req.params.id
+  ).populate ('borrowboardgame', {
+    id: req.params.fk,
+  });
+
+  if (!thatPerson) return res.notFound ();
+
+  if (!thatPerson.borrowboardgame.length)
+    return res.status (409).send ('Nothing to delete.'); // conflict
+
+  await Boardgame.removeFromCollection (req.params.fk, 'bgborrowby').members (
+    req.params.id
+  );
+  await User.removeFromCollection (req.params.id, 'borrowboardgame').members (
+    req.params.fk
+  );
+
+  await Boardgame.update (req.params.fk)
+    .set ({
+      borrowstatus: false,
+      bookstatus: false,
+    })
+    .fetch ();
+
+  if (req.wantsJSON) {
+    return res.json ({
+      message: 'cancle borrow successfully',
+      url: '/boardgame/borrowdetail/' + req.params.fk,
+    }); // for ajax request
+  } else {
+    return res.redirect ('/boardgame/borrowdetail/' + req.params.fk); // for normal request
+  }
+},
+
+// action - borrow detail page
+borrowdetail: async function (req, res) {
+  // console.log('req id: ',req.params.id);
+  var model = await Boardgame.findOne (req.params.id).populate ('bgborrowby');
+  if (!model) return res.notFound ();
+  console.log (model);
+
+  return res.view ('boardgame/borrow', {
+    boardgame: model,
+    isborrowed: model.borrowstatus,
+  });
+},
+
+//show borrower
+showborrower: async function (req, res) {
+  var model = await Boardgame.findOne (req.params.id).populate ('bgborrowby');
+
+  if (!model) return res.notFound ();
+
+  return res.json (model);
+},
 };

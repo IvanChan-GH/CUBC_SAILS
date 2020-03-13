@@ -59,6 +59,11 @@ module.exports = {
         via: 'bookmaterial'
       },
 
+      matborrowby: {
+        collection: 'User',
+        via: 'borrowmaterial'
+      },
+
     },
   };
   

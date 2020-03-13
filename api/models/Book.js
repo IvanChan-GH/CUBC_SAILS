@@ -58,7 +58,10 @@ module.exports = {
         via: 'bookbook'
       },
 
-  
+      bkborrowby: {
+        collection: 'User',
+        via: 'borrowbook'
+      },
   
     },
   };

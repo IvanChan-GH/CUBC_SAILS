@@ -1,28 +1,29 @@
-<div>Board Game name: <%= boardgame.name %></div>
-<div>Board Game type: <%= boardgame.type %></div>
-<div>Board Game location: <%= boardgame.location %></div>
-<div>Board Game remark: <%= boardgame.remark %></div>
-<div>Board Game avatar: <%= boardgame.avatar %></div>
+<div>Activity Material name: <%= material.name %></div>
+<div>Activity Material should return back: <%= material.returnback %></div>
+<div>Activity Material quantity: <%= material.quantity %></div>
+<div>Activity Material location: <%= material.location %></div>
+<div>Activity Material remark: <%= material.remark %></div>
+<div>Activity Material avatar: <%= material.avatar %></div>
 <div style="float: left;padding-top: 10px;">
-    <% if (isbooked==true){ %>
-    <button type="button" class="btn btn-danger" onclick="removebooking('<%= req.session.userId %>')">
-        Cancle booking
+    <% if (isborrowed==true){ %>
+    <button type="button" class="btn btn-danger" onclick="removeborrwow('<%= req.session.userId %>')">
+        Cancle borrow
     </button>
     <% } else{ %>
-    <button type="button" class="btn btn-primary" onclick="addbooking('<%= req.session.userId %>')">
-        Add booking
+    <button type="button" class="btn btn-primary" onclick="addborrow('<%= req.session.userId %>')">
+        Borrow now
     </button>
     <%} %>
 </div>
 
 
 <script>
-    async function addbooking(id) {
-        var r = confirm("Confirm to book?");
+    async function addborrow(id) {
+        var r = confirm("Confirm to borrow?");
 
         if (r) {
             var response = await fetch(
-                "/user/<%= req.session.userId %>/addbooking/boardgame/<%= boardgame.id %>",
+                "/user/<%= req.session.userId %>/addborrow/material/<%= material.id %>",
                 {
                     method: "POST",
                     credentials: "same-origin"
@@ -41,12 +42,12 @@
         }
     }
 
-    async function removebooking(id) {
-        var r = confirm("Confirm to remove booking?");
+    async function removeborrwow(id) {
+        var r = confirm("Confirm to cancle?");
 
         if (r) {
             var response = await fetch(
-                "/user/<%= req.session.userId %>/removebooking/boardgame/<%= boardgame.id %>",
+                "/user/<%= req.session.userId %>/removeborrow/material/<%= material.id %>",
                 {
                     method: "POST",
                     credentials: "same-origin"

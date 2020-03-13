@@ -6,6 +6,12 @@
  */
 
 module.exports = {
+  //list materials model
+  list: async function (req, res) {
+    var models = await Material.find ();
+    return res.view ('material/list', {materials: models});
+  },
+
   //return item details
   viewdetails: async function (req, res) {
     var model = await Material.findOne (req.params.id);
@@ -150,7 +156,6 @@ module.exports = {
     return res.json (model);
   },
 
- 
   // action - view book detail
   bookingdetail: async function (req, res) {
     // console.log('req id: ',req.params.id);
@@ -163,4 +168,118 @@ module.exports = {
       isbooked: model.bookstatus,
     });
   },
+
+  // action - borrow detail page
+  borrowdetail: async function (req, res) {
+    // console.log('req id: ',req.params.id);
+    var model = await Boardgame.findOne (req.params.id).populate ('bgborrowby');
+    if (!model) return res.notFound ();
+    console.log (model);
+
+    return res.view ('boardgame/borrow', {
+      boardgame: model,
+      isborrowed: model.borrowstatus,
+    });
+  },
+
+ // add borrow association
+ addborrow: async function (req, res) {
+  if (!await Material.findOne (req.params.fk)) return res.notFound ();
+
+  const thatPerson = await User.findOne (
+    req.params.id
+  ).populate ('borrowmaterial', {
+    id: req.params.fk,
+  });
+  console.log ('fk:' + req.params.fk);
+  console.log ('id:' + req.params.id);
+  console.log (thatPerson);
+  if (!thatPerson) return res.notFound ();
+
+  if (thatPerson.borrowmaterial.length)
+    return res.status (409).send ('Already borrowed.'); // conflict
+
+  await Material.addToCollection (req.params.fk, 'matborrowby').members (
+    req.params.id
+  );
+  await User.addToCollection (req.params.id, 'borrowmaterial').members (
+    req.params.fk
+  );
+
+  await Material.update (req.params.fk)
+    .set ({
+      borrowstatus: true,
+    })
+    .fetch ();
+
+  if (req.wantsJSON) {
+    return res.json ({
+      message: 'borrow successfully',
+      url: '/material/borrowdetail/' + req.params.fk,
+    }); // for ajax request
+  } else {
+    return res.redirect ('/material/borrowdetail/' + req.params.fk); // for normal request
+  }
+},
+
+//remove borrow association
+removeborrow: async function (req, res) {
+  if (!await Material.findOne (req.params.fk)) return res.notFound ();
+
+  const thatPerson = await User.findOne (
+    req.params.id
+  ).populate ('borrowmaterial', {
+    id: req.params.fk,
+  });
+
+  if (!thatPerson) return res.notFound ();
+
+  if (!thatPerson.borrowmaterial.length)
+    return res.status (409).send ('Nothing to delete.'); // conflict
+
+  await Material.removeFromCollection (req.params.fk, 'matborrowby').members (
+    req.params.id
+  );
+  await User.removeFromCollection (req.params.id, 'borrowmaterial').members (
+    req.params.fk
+  );
+
+  await Material.update (req.params.fk)
+    .set ({
+      borrowstatus: false,
+      bookstatus: false,
+    })
+    .fetch ();
+
+  if (req.wantsJSON) {
+    return res.json ({
+      message: 'cancle borrow successfully',
+      url: '/material/borrowdetail/' + req.params.fk,
+    }); // for ajax request
+  } else {
+    return res.redirect ('/material/borrowdetail/' + req.params.fk); // for normal request
+  }
+},
+
+// action - borrow detail page
+borrowdetail: async function (req, res) {
+  // console.log('req id: ',req.params.id);
+  var model = await Material.findOne (req.params.id).populate ('matborrowby');
+  if (!model) return res.notFound ();
+  console.log (model);
+
+  return res.view ('material/borrow', {
+    material: model,
+    isborrowed: model.borrowstatus,
+  });
+},
+
+//show borrower
+showborrower: async function (req, res) {
+  var model = await Material.findOne (req.params.id).populate ('matborrowby');
+
+  if (!model) return res.notFound ();
+
+  return res.json (model);
+},
 };

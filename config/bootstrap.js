@@ -39,7 +39,7 @@ module.exports.bootstrap = async function () {
         location: 'room222',
         avatar: '',
         bookstatus: false,
-        borrowstatus: true,
+        borrowstatus: false,
       },
       {
         id: 3,
@@ -72,7 +72,7 @@ module.exports.bootstrap = async function () {
         location: 'room101',
         avatar: '',
         bookstatus: false,
-        borrowstatus: true,
+        borrowstatus: false,
       },
     ]);
   }
@@ -87,7 +87,7 @@ module.exports.bootstrap = async function () {
         location: 'room101',
         avatar: '',
         bookstatus: false,
-        borrowstatus: true,
+        borrowstatus: false,
       },
       {
         id: 2,
@@ -97,7 +97,7 @@ module.exports.bootstrap = async function () {
         location: 'room202',
         avatar: '',
         bookstatus: false,
-        borrowstatus: true,
+        borrowstatus: false,
       },
     ]);
   }
