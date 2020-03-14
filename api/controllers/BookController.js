@@ -284,5 +284,14 @@ showborrower: async function (req, res) {
   return res.json (model);
 },
 
+showBookList: async function (req, res) {
+
+  
+  var model = await Book.find();
+  console.log(model)
+
+  return res.view ('book/booklist', {book: model});
+},
+
 
 };

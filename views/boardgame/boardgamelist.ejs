@@ -1,0 +1,6 @@
+<ul class="col-md-7 col-12 list-group">
+    <% Boardgame.forEach( function(model) { %>
+        <li class = list-group-item><a href="http://localhost:1337/boardgame/bookingdetail/<%= model.id %>">
+            <%= model.name %>  </a>  </li>
+            <% }); %>
+</ul>

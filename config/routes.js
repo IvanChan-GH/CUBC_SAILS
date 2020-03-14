@@ -104,6 +104,25 @@ module.exports.routes = {
   'POST /user/:id/removeborrow/boardgame/:fk': 'BoardgameController.removeborrow',
   'POST /user/:id/removeborrow/book/:fk': 'BookController.removeborrow',
   'POST /user/:id/removeborrow/material/:fk': 'MaterialController.removeborrow',
+
+  'GET /book/booklist/': 'BookController.showBookList',
+  'GET /material/materiallist/': 'MaterialController.showMaterialList',
+  'GET /present/presentlist/': 'PresentController.showPresentList',
+  'GET /boardgame/boardgamelist/': 'BoardgameController.showBoardgameList',
+
+
+  'POST /book/booklist/': 'BookController.showBookList',
+  'POST /material/materiallist/': 'MaterialController.showMaterialList',
+  'POST /present/presentlist/': 'PresentController.showPresentList',
+  'POST /boardgame/boardgamelist/': 'BoardgameController.showBoardgameList',
+
+
+  'GET /category/category': 'CategoryController.showCategory',
+  'POST /category/category': 'CategoryController.showCategory',
+
+
+
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

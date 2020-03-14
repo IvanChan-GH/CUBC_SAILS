@@ -1,0 +1,7 @@
+<ul class="col-md-7 col-12 list-group">
+    <% Present.forEach( function(model) { %>
+        <li class = list-group-item><a href="http://localhost:1337/present/bookingdetail/<%= model.id %>">
+            <%= model.name %>  </a>  </li>
+            <% }); %>
+</ul> 
+

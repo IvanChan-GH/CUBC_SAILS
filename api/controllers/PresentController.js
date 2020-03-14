@@ -68,4 +68,13 @@ module.exports = {
       return res.ok ('Record updated');
     }
   },
+
+  showPresentList: async function (req, res) {
+
+  
+    var model = await Present.find();
+    console.log(model)
+
+    return res.view ('present/presentlist', {Present: model});
+  },
 };

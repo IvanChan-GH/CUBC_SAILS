@@ -282,4 +282,12 @@ showborrower: async function (req, res) {
 
   return res.json (model);
 },
+showMaterialList: async function (req, res) {
+
+  
+  var model = await Material.find();
+  console.log(model)
+
+  return res.view ('material/materiallist', {Material: model});
+},
 };

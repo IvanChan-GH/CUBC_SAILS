@@ -299,4 +299,14 @@ showborrower: async function (req, res) {
 
   return res.json (model);
 },
+
+showBoardgameList: async function (req, res) {
+
+  
+  var model = await Boardgame.find();
+  console.log(model)
+
+  return res.view ('boardgame/boardgamelist', {Boardgame: model});
+},
+
 };

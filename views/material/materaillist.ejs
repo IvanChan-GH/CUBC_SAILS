@@ -1,0 +1,6 @@
+<ul class="col-md-7 col-12 list-group">
+    <% Material.forEach( function(model) { %>
+        <li class = list-group-item><a href="http://localhost:1337/material/bookingdetail/<%= model.id %>">
+            <%= model.name %>  </a>  </li>
+            <% }); %>
+</ul>
