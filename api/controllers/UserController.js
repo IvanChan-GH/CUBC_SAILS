@@ -173,5 +173,37 @@ module.exports = {
     return res.view('user/search', { boardgames: bgmodel ,books: bkmodel ,materials: matmodel, presents: presentmodel});
   },
 
+  staffList: async function (req,res){
+    var model = await User.find({
+      where: {role: {"contains": "staff"}}
+    });
+    console.log(model)
+
+    return res.view ('user/stafflist', {User: model});
+
+
+  },
+
+  create: async function(req, res){
+
+    if (req.method == 'GET') return res.view ('user/create');
+
+    if (!req.body.User) return res.badRequest ('Form-data not received.');
+
+    await User.create ({
+      name: req.body.User.username,
+      id: req.body.User.id,
+      password: req.body.User.password,
+      role: "staff",
+      avatar: req.body.User.avatar,
+      avatorpath: req.body.User.avaterpath,
+      staffID: req.body.User.staffID
+      
+    });
+
+    return res.ok ('Successfully created!');
+
+  }
+
 
 };

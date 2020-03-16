@@ -30,6 +30,15 @@ module.exports = {
     avatar: {
       type: 'string'
     },
+
+    staffID: {
+      type: 'string'
+    },
+
+    role: {
+      type: 'string'
+    },
+    
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

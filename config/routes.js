@@ -109,12 +109,16 @@ module.exports.routes = {
   'GET /material/materiallist/': 'MaterialController.showMaterialList',
   'GET /present/presentlist/': 'PresentController.showPresentList',
   'GET /boardgame/boardgamelist/': 'BoardgameController.showBoardgameList',
+  'GET /user/stafflist/': 'UserController.staffList',
+  'GET /user/createstaff/': 'UserController.create',
 
 
   'POST /book/booklist/': 'BookController.showBookList',
   'POST /material/materiallist/': 'MaterialController.showMaterialList',
   'POST /present/presentlist/': 'PresentController.showPresentList',
   'POST /boardgame/boardgamelist/': 'BoardgameController.showBoardgameList',
+  'POST /user/stafflist/': 'UserController.staffList',
+  'POST /user/createstaff/': 'UserController.create',
 
 
   'GET /category/category': 'CategoryController.showCategory',

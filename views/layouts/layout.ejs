@@ -62,6 +62,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav my-auto">
+
+            <% if(req.session.username == "admin"){%>
+              <a class="nav-item nav-link disabled" href="http://localhost:1337/event/admin">Admin</a>
+              <a class="nav-item nav-link" href="http://localhost:1337/user/stafflist">Staff</a>
+
+              <%};%>
+              <% if(req.session.username != null && req.session.username != "admin"){%>
+                <a class="nav-item nav-link disabled">Hi,
+                  <%= req.session.username%></a>
+              <% };%>
+          </div>
             <div class="navbar-nav my-2 my-lg-0">
 
               <% if(!req.session.username){%>
@@ -70,9 +81,6 @@
               <%}else{%>
                 <a class="nav-item nav-link" href="http://localhost:1337/user/search">Search</a>
                 <a class="nav-item nav-link" href="http://localhost:1337/category/category">Category</a>
-
-              <a class="nav-item nav-link disabled">Hi,
-                <%= req.session.username%></a>
               <a class="nav-item nav-link " href="http://localhost:1337/user/logout">[logout]</a>
               <%};%>
       
