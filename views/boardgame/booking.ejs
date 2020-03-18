@@ -4,15 +4,17 @@
 <div>Board Game remark: <%= boardgame.remark %></div>
 <div>Board Game avatar: <%= boardgame.avatar %></div>
 <div style="float: left;padding-top: 10px;">
-    <% if (isbooked==true){ %>
+    <% if (isbooked){ %>
     <button type="button" class="btn btn-danger" onclick="removebooking('<%= req.session.userId %>')">
         Cancle booking
     </button>
-    <% } else{ %>
-    <button type="button" class="btn btn-primary" onclick="addbooking('<%= req.session.userId %>')">
+    <% } else{ %> 
+     <button type="button" class="btn btn-primary" onclick="addbooking('<%= req.session.userId %>')">
         Add booking
     </button>
     <%} %>
+
+   
 </div>
 
 

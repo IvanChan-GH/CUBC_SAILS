@@ -9,10 +9,11 @@ module.exports = {
 
    //list all models
    list: async function (req, res) {
-    var models = await Boardgame.find ();
-    var models2 = await Book.find ();
-    var models3 = await Material.find ();
-    var models4 = await Present.find ();
+    var boardgames = await Boardgame.find ();
+    var books = await Book.find ();
+    var materials = await Material.find ();
+    var presents = await Present.find ();
+    return res.json ({boardgames: boardgames, books: books, materials: materials, presents: presents });
     return res.view ('user/list', {boardgames: models,books:models2 ,materials:models3 ,presents:models4});
   },
 
@@ -38,15 +39,13 @@ module.exports = {
       req.session.role = user.role;
       console.log ('userid: ' + user.id);
       sails.log ('[Session] ', req.session);
+
       if (req.wantsJSON) {
-        return res.json ({
-          url: '/',
-          message: 'Login successfully.',
-          uid: user.id,
-        }); // for ajax request
+        return res.json({uid: user.id , message:"login successfully"});
       } else {
         return res.redirect ('/'); // for normal request
       }
+
     });
   },
   //user logout

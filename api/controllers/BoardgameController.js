@@ -9,7 +9,11 @@ module.exports = {
   //list boardgame model
   list: async function (req, res) {
     var models = await Boardgame.find ();
-    return res.view ('boardgame/list', {boardgames: models});
+    //return res.view ('boardgame/list', {boardgames: models});
+
+    return res.json({
+      boardgames: models
+    });
   },
 
   //return item details
