@@ -28,8 +28,8 @@ module.exports.bootstrap = async function () {
         author: 'Edith Nesbit',
         location: 'room101',
         avatar: '',
-        bookstatus: false,
-        borrowstatus: false,
+        isbooked: false,
+        isborrowed: false,
       },
       {
         id: 2,
@@ -38,8 +38,8 @@ module.exports.bootstrap = async function () {
         author: 'Téa Obreht',
         location: 'room222',
         avatar: '',
-        bookstatus: false,
-        borrowstatus: false,
+        isbooked: false,
+        isborrowed: false,
       },
       {
         id: 3,
@@ -48,8 +48,8 @@ module.exports.bootstrap = async function () {
         author: 'Téa Obreht',
         location: 'room222',
         avatar: '',
-        bookstatus: false,
-        borrowstatus: true,
+        isbooked: false,
+        isborrowed: true,
       },
     ]);
   }
@@ -61,18 +61,18 @@ module.exports.bootstrap = async function () {
         name: 'Carcassonne',
         type: 'Card Game',
         location: 'room101',
-        avatar: '',
-        bookstatus: false,
-        borrowstatus: false,
+        avatar: 'https://cdn.mos.cms.futurecdn.net/j2RagXQw7UWjGeh9o34nG7-1200-80.jpg',
+        isbooked: false,
+        isborrowed: false,
       },
       {
         id: 2,
         name: '7 Wonders',
         type: 'City Building',
         location: 'room101',
-        avatar: '',
-        bookstatus: false,
-        borrowstatus: false,
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQcuoz3KoXmDsr2K09GWUvGbzvUmu6Cpkl3ghbWZ0BYsxzXXg3R',
+        isbooked: false,
+        isborrowed: false,
       },
     ]);
   }
@@ -86,8 +86,8 @@ module.exports.bootstrap = async function () {
         returnback: true,
         location: 'room101',
         avatar: '',
-        bookstatus: false,
-        borrowstatus: false,
+        isbooked: false,
+        isborrowed: false,
       },
       {
         id: 2,
@@ -96,8 +96,8 @@ module.exports.bootstrap = async function () {
         returnback: false,
         location: 'room202',
         avatar: '',
-        bookstatus: false,
-        borrowstatus: false,
+        isbooked: false,
+        isborrowed: false,
       },
     ]);
   }

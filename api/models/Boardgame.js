@@ -27,11 +27,11 @@ module.exports = {
       avatar:{
         type: "string"
       },
-      bookstatus: {
+      isbooked: {
         type: "boolean"
       },
 
-      borrowstatus: {
+      isborrowed: {
         type: "boolean"
       },
 
@@ -39,6 +39,10 @@ module.exports = {
         type: "string"
       },
       
+
+      duedate: {
+        type: "number"
+      },
   
       //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
       //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

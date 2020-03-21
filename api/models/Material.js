@@ -32,16 +32,19 @@ module.exports = {
         type: "string"
       },
 
-      bookstatus: {
+      isbooked: {
         type: "boolean"
       },
 
-      borrowstatus: {
+      isborrowed: {
         type: "boolean"
       },
 
       remark: {
         type: "string"
+      },
+      duedate: {
+        type: "number"
       },
       
   

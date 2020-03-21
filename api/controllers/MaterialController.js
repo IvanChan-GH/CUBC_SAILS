@@ -34,8 +34,8 @@ module.exports = {
       location: req.body.Material.location,
       avatar: req.body.Material.avatar,
       remark: req.body.Material.remark,
-      bookstatus: false,
-      borrowstatus: false,
+      isbooked: false,
+      isborrowed: false,
     });
 
     return res.ok ('Successfully created!');
@@ -95,7 +95,7 @@ module.exports = {
 
     await Material.update (req.params.fk)
       .set ({
-        bookstatus: true,
+        isbooked: true,
       })
       .fetch ();
 
@@ -133,7 +133,7 @@ module.exports = {
 
     await Material.update (req.params.fk)
       .set ({
-        bookstatus: false,
+        isbooked: false,
       })
       .fetch ();
 
@@ -165,7 +165,7 @@ module.exports = {
 
     return res.view ('material/booking', {
       material: model,
-      isbooked: model.bookstatus,
+      isbooked: model.isbooked,
     });
   },
 
@@ -178,7 +178,7 @@ module.exports = {
 
     return res.view ('boardgame/borrow', {
       boardgame: model,
-      isborrowed: model.borrowstatus,
+      isborrowed: model.isborrowed,
     });
   },
 
@@ -206,9 +206,13 @@ module.exports = {
     req.params.fk
   );
 
+  var someDate = new Date();
+  var numberOfDaysToAdd = 30;
+  someDate.setDate(someDate.getDate() + numberOfDaysToAdd); 
   await Material.update (req.params.fk)
     .set ({
-      borrowstatus: true,
+      isborrowed: true,
+      duedate:someDate,
     })
     .fetch ();
 
@@ -246,8 +250,8 @@ removeborrow: async function (req, res) {
 
   await Material.update (req.params.fk)
     .set ({
-      borrowstatus: false,
-      bookstatus: false,
+      isborrowed: false,
+      isbooked: false,
     })
     .fetch ();
 
@@ -270,7 +274,7 @@ borrowdetail: async function (req, res) {
 
   return res.view ('material/borrow', {
     material: model,
-    isborrowed: model.borrowstatus,
+    isborrowed: model.isborrowed,
   });
 },
 
