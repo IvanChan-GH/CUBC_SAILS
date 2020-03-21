@@ -41,7 +41,7 @@ module.exports = {
       sails.log ('[Session] ', req.session);
 
       if (req.wantsJSON) {
-        return res.json({uid: user.id , message:"login successfully"});
+        return res.json({uid: user.id ,role: user.role ,message:"login successfully"});
       } else {
         return res.redirect ('/'); // for normal request
       }
