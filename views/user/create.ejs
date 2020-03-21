@@ -1,12 +1,22 @@
 <form action="/user/create" method="POST">
     <div class="form-group">
-        <label>Staff Name</label>
+        <label>Staff name</label>
         <input type="text" class="form-control" name="User[username]" required>
     </div>
 
     <div class="form-group">
         <label>Staff ID</label>
-        <input type="text" class="form-control" name="User[id]" required>
+        <input type="text" class="form-control" name="User[staffID]" required>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" name="User[email]" required>
+    </div>
+
+    <div class="form-group">
+        <label>Telephone number:</label>
+        <input type="text" class="form-control" name="User[tel]" required>
     </div>
 
     <div class="form-group">

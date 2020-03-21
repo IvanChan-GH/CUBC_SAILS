@@ -35,6 +35,15 @@ module.exports = {
       type: 'string'
     },
 
+    email: {
+      type: 'string'
+    },
+
+    tel: {
+      type: 'string'
+    },
+
+
     role: {
       type: 'string'
     },

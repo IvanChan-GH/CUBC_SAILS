@@ -188,21 +188,31 @@ module.exports = {
     if (req.method == 'GET') return res.view ('user/create');
 
     if (!req.body.User) return res.badRequest ('Form-data not received.');
-
+    console.log(req.body);
+    console.log(req.body.User.username);
+    const saltRounds = 10;
+    const pw=await sails.bcrypt.hash (req.body.User.password, saltRounds);
     await User.create ({
-      name: req.body.User.username,
-      id: req.body.User.id,
-      password: req.body.User.password,
+      username: req.body.User.username,
+      staffID: req.body.User.id,
+      password: pw,
       role: "staff",
       avatar: req.body.User.avatar,
-      avatorpath: req.body.User.avaterpath,
       staffID: req.body.User.staffID
       
     });
 
     return res.ok ('Successfully created!');
 
-  }
+  },
+
+  staffdetail: async function (req, res) {
+    var model = await User.findOne (req.params.id);
+
+    if (!model) return res.notFound ();
+
+    return res.view ('user/staffdetail/', {user: model});
+  },
 
 
 };

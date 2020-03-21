@@ -1,19 +1,21 @@
 <ul class="col-md-7 col-12 list-group">
     <% User.forEach( function(model) { %>
-        <li class = list-group-item><a href="http://localhost:1337/user/stafflist/">
+        <li class = list-group-item><a href="http://localhost:1337/user/view/">
             <%= model.username %>  </a>  </li>
             <% }); %>
 </ul> 
 <div>
-    <button type="button" class="btn btn-primary"><a href="http://localhost:1337/user/createstaff/">
+    <button type="button" class="btn btn-primary" styler="color: white"><a href = "http://localhost:1337/user/create/">
        Create User
-    </a></button>
+ </a></button>
 </div>
 
-<!-- <script>
-async function createButton(){
 
-return res.view("user/create")
+
+<!-- <script>
+function createButton(){
+
+   return res.redirect("user/create")
 }
 
 </script> -->

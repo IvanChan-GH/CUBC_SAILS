@@ -34,6 +34,8 @@ module.exports.routes = {
   'GET /boardgame/view/:id': 'BoardgameController.viewdetails',
   'GET /material/view/:id': 'MaterialController.viewdetails',
   'GET /present/view/:id': 'PresentController.viewdetails',
+  'GET /user/view/:id': 'UserController.staffdetail',
+
 
   'GET /book/list': 'BookController.list',
   'GET /boardgame/list': 'BoardgameController.list',
@@ -110,7 +112,7 @@ module.exports.routes = {
   'GET /present/presentlist/': 'PresentController.showPresentList',
   'GET /boardgame/boardgamelist/': 'BoardgameController.showBoardgameList',
   'GET /user/stafflist/': 'UserController.staffList',
-  'GET /user/createstaff/': 'UserController.create',
+  'GET /user/create/': 'UserController.create',
 
 
   'POST /book/booklist/': 'BookController.showBookList',
@@ -118,7 +120,7 @@ module.exports.routes = {
   'POST /present/presentlist/': 'PresentController.showPresentList',
   'POST /boardgame/boardgamelist/': 'BoardgameController.showBoardgameList',
   'POST /user/stafflist/': 'UserController.staffList',
-  'POST /user/createstaff/': 'UserController.create',
+  'POST /user/create/': 'UserController.create',
 
 
   'GET /category/category': 'CategoryController.showCategory',

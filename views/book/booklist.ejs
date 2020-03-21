@@ -1,6 +1,13 @@
 <ul class="col-md-7 col-12 list-group">
     <% book.forEach( function(model) { %>
-        <li class = list-group-item><a href="http://localhost:1337/book/bookingdetail/<%= model.id %>">
-            <%= model.name %>  </a>  </li>
+        <li>
+            <div class="hImg">
+            <img class="img-fluid" style="object-fit:contain;height:250px" src="<%= model.avatar%>"/>
+        </div>
+       <div class = list-group-item><a href="http://localhost:1337/book/bookingdetail/<%= model.id %>">
+           <%= model.name %>  </a></div>
+        
+        </li>
+
             <% }); %>
 </ul>
