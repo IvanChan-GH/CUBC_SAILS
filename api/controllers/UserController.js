@@ -201,7 +201,10 @@ module.exports = {
       password: pw,
       role: "staff",
       avatar: req.body.User.avatar,
-      staffID: req.body.User.staffID
+      staffID: req.body.User.staffID,
+      email: req.body.User.email,
+      tel: req.body.User.tel
+     
       
     });
 
@@ -213,8 +216,9 @@ module.exports = {
     var model = await User.findOne (req.params.id);
 
     if (!model) return res.notFound ();
+    return res.json({user: model});
 
-    return res.view ('user/staffdetail/', {user: model});
+    // return res.view ('user/staffdetail/', {user: model});
   },
 
 
