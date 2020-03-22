@@ -178,7 +178,10 @@ module.exports = {
     });
     console.log(model)
 
-    return res.view ('user/stafflist', {User: model});
+    return res.json({User: model
+    });
+
+    // return res.view ('user/stafflist', {User: model});
 
 
   },
