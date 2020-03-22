@@ -221,5 +221,36 @@ module.exports = {
     // return res.view ('user/staffdetail/', {user: model});
   },
 
+  update: async function (req, res) {
+    if (req.method == 'GET') {
+      var model = await User.findOne (req.params.id);
+
+      if (!model) return res.notFound ();
+      return res.json({user: model});
+
+      // return res.view ('user/update', {User: model});
+    } else {
+      if (!req.body.User) return res.badRequest ('Form-data not received.');
+
+      var models = await User.update (req.params.id)
+        .set ({
+          username: req.body.User.username,
+          staffID: req.body.User.id,
+          role: "staff",
+          avatar: req.body.User.avatar,
+          staffID: req.body.User.staffID,
+          email: req.body.User.email,
+          tel: req.body.User.tel
+     
+        })
+        .fetch ();
+
+      if (models.length == 0) return res.notFound ();
+      return res.json({user: model})
+
+      return res.ok ('Record updated');
+    }
+  },
+
 
 };

@@ -60,6 +60,9 @@ module.exports.routes = {
   'POST /present/update/:id': 'PresentController.update',
   'GET /material/update/:id': 'MaterialController.update',
   'POST /material/update/:id': 'MaterialController.update',
+  'GET /user/update/:id': 'UserController.update',
+  'POST /user/update/:id': 'UserController.update',
+
 
 
   'GET /boardgame/:id/bookby': 'BoardgameController.showbooking',
