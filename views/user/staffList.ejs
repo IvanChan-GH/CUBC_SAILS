@@ -7,9 +7,37 @@
 <div>
     <button type="button" class="btn btn-primary" styler="color: white"><a href = "http://localhost:1337/user/create/">
        Create User
+       <td><button type="button" class="btn btn-danger" onclick="deleteStaff('<%= estate.id %>')">Delete</button></td>
+
  </a></button>
 </div>
+<script>
 
+    async function deleteStaff(id) {
+
+        var r = confirm("Confirm Delete?");
+
+        if (r) {
+
+            var response = await fetch("/user/" + id, {
+                method: "DELETE",
+                credentials: 'same-origin',
+            });
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+    };
+
+</script>
 
 
 <!-- <script>

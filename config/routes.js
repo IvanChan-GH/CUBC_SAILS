@@ -126,6 +126,8 @@ module.exports.routes = {
   'GET /category/category': 'CategoryController.showCategory',
   'POST /category/category': 'CategoryController.showCategory',
 
+  //'POST /estate/delete/:id': 'EstateController.delete',
+  'DELETE /user/:id': 'UserController.delete',
 
 
 
