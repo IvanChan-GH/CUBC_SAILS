@@ -230,17 +230,17 @@ module.exports = {
 
       // return res.view ('user/update', {User: model});
     } else {
-      if (!req.body.User) return res.badRequest ('Form-data not received.');
+      if (!req.body) return res.badRequest ('Form-data not received.');
 
       var models = await User.update (req.params.id)
         .set ({
-          username: req.body.User.username,
-          staffID: req.body.User.id,
+          username: req.body.username,
+          staffID: req.body.id,
           role: "staff",
-          avatar: req.body.User.avatar,
-          staffID: req.body.User.staffID,
-          email: req.body.User.email,
-          tel: req.body.User.tel
+          avatar: req.body.avatar,
+          staffID: req.body.staffID,
+          email: req.body.email,
+          tel: req.body.tel
      
         })
         .fetch ();
