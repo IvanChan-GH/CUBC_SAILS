@@ -132,6 +132,7 @@ module.exports.routes = {
   //'POST /estate/delete/:id': 'EstateController.delete',
   'DELETE /user/:id': 'UserController.delete',
 
+  'DELETE /present/:id': 'PresentController.delete',
 
 
   /***************************************************************************

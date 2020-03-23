@@ -77,4 +77,18 @@ module.exports = {
 
     return res.view ('present/presentlist', {Present: model});
   },
+
+  // action - delete
+delete: async function (req, res) {
+  if (req.method == "GET") return res.forbidden();
+  var model = await Present.destroy(req.params.id).fetch();
+  if (model.length == 0) return res.notFound();
+
+  //return res.ok("Staff Deleted.");
+  if (req.wantsJSON) {
+      return res.json({ message: "Present Deleted.", url: '/present/presentlist' }); // for ajax request
+  } else {
+      return res.redirect('/present/presentlist'); // for normal request
+  }
+},
 };

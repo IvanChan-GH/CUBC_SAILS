@@ -264,7 +264,7 @@ delete: async function (req, res) {
   if (req.wantsJSON) {
       return res.json({ message: "Staff Deleted.", url: '/user/staffList' }); // for ajax request
   } else {
-      return res.redirect('/user/staffListn'); // for normal request
+      return res.redirect('/user/staffList'); // for normal request
   }
 },
 
