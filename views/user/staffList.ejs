@@ -1,13 +1,16 @@
 <ul class="col-md-7 col-12 list-group">
     <% User.forEach( function(model) { %>
         <li class = list-group-item><a href="http://localhost:1337/user/view/">
-            <%= model.username %>  </a>  </li>
+            <%= model.username %>  </a>    
+            <button type="button" class="btn btn-danger" onclick="deleteStaff('<%= model.id %>')">Delete</button>
+        </li>
+            
             <% }); %>
+            
 </ul> 
 <div>
     <button type="button" class="btn btn-primary" styler="color: white"><a href = "http://localhost:1337/user/create/">
        Create User
-       <td><button type="button" class="btn btn-danger" onclick="deleteStaff('<%= estate.id %>')">Delete</button></td>
 
  </a></button>
 </div>

@@ -178,10 +178,12 @@ module.exports = {
     });
     console.log(model)
 
-    return res.json({User: model
-    });
-
-    // return res.view ('user/stafflist', {User: model});
+    
+    if (req.wantsJSON) {
+      return res.json({User: model
+      });  } else {
+        return res.view ('user/stafflist', {User: model});
+      }
 
 
   },
@@ -224,7 +226,7 @@ module.exports = {
 // action - delete
 delete: async function (req, res) {
   if (req.method == "GET") return res.forbidden();
-  var model = await Estate.destroy(req.params.id).fetch();
+  var model = await User.destroy(req.params.id).fetch();
   if (model.length == 0) return res.notFound();
 
   //return res.ok("Staff Deleted.");
