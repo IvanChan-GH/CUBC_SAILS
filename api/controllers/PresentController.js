@@ -84,7 +84,7 @@ delete: async function (req, res) {
   var model = await Present.destroy(req.params.id).fetch();
   if (model.length == 0) return res.notFound();
 
-  //return res.ok("Staff Deleted.");
+  //return res.ok("Present Deleted.");
   if (req.wantsJSON) {
       return res.json({ message: "Present Deleted.", url: '/present/presentlist' }); // for ajax request
   } else {

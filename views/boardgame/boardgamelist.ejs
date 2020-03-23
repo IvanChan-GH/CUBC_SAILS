@@ -1,6 +1,36 @@
 <ul class="col-md-7 col-12 list-group">
     <% Boardgame.forEach( function(model) { %>
         <li class = list-group-item><a href="http://localhost:1337/boardgame/bookingdetail/<%= model.id %>">
-            <%= model.name %>  </a>  </li>
+            <%= model.name %>  </a>  
+            <button type="button" class="btn btn-danger" onclick="deleteBook('<%= model.id %>')">Delete</button>
+
+        </li>
             <% }); %>
 </ul>
+<script>
+
+    async function deleteBoardgame(id) {
+
+        var r = confirm("Confirm Delete?");
+
+        if (r) {
+
+            var response = await fetch("/boardgame/" + id, {
+                method: "DELETE",
+                credentials: 'same-origin',
+            });
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+    };
+
+</script>

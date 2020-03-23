@@ -292,4 +292,18 @@ module.exports = {
 
     return res.view ('book/booklist', {book: model});
   },
+  //deletebook
+delete: async function (req, res) {
+  if (req.method == "GET") return res.forbidden();
+  var model = await Book.destroy(req.params.id).fetch();
+  if (model.length == 0) return res.notFound();
+
+  //return res.ok("book Deleted.");
+  if (req.wantsJSON) {
+      return res.json({ message: "Book Deleted.", url: '/book/booklist' }); // for ajax request
+  } else {
+      return res.redirect('/book/booklist'); // for normal request
+  }
+},
+
 };

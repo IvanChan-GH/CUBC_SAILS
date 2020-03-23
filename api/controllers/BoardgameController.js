@@ -317,4 +317,18 @@ module.exports = {
 
     return res.view ('boardgame/boardgamelist', {Boardgame: model});
   },
+
+  // action - delete
+delete: async function (req, res) {
+  if (req.method == "GET") return res.forbidden();
+  var model = await Boardgame.destroy(req.params.id).fetch();
+  if (model.length == 0) return res.notFound();
+
+  //return res.ok("Boardgame Deleted.");
+  if (req.wantsJSON) {
+      return res.json({ message: "Boardgame Deleted.", url: '/boardgame/boardgamelist' }); // for ajax request
+  } else {
+      return res.redirect('/boardgame/boardgamelist'); // for normal request
+  }
+},
 };

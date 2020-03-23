@@ -5,9 +5,39 @@
             <img class="img-fluid" style="object-fit:contain;height:250px" src="<%= model.avatar%>"/>
         </div>
        <div class = list-group-item><a href="http://localhost:1337/book/bookingdetail/<%= model.id %>">
-           <%= model.name %>  </a></div>
+           <%= model.name %>  </a>
+           <button type="button" class="btn btn-danger" onclick="deleteBook('<%= model.id %>')">Delete</button>
+        </div>
         
         </li>
 
             <% }); %>
 </ul>
+<script>
+
+    async function deleteBook(id) {
+
+        var r = confirm("Confirm Delete?");
+
+        if (r) {
+
+            var response = await fetch("/book/" + id, {
+                method: "DELETE",
+                credentials: 'same-origin',
+            });
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+    };
+
+</script>
+
